@@ -2,12 +2,17 @@ import NextAuth from "next-auth";
 import connectDB from "../lib/dbConnect";
 import UserModel from "../models/userModel";
 import CredentialsProvider from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
 
 export const authOptions = {
   session: {
     strategy: "jwt",
   },
   providers: [
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET
+    }),
     CredentialsProvider({
       credentials: {},
       async authorize(credentials, req) {
@@ -19,7 +24,7 @@ export const authOptions = {
         if (!passwordMacthed) throw Error("Password is not correct");
         return user;
       },
-    }),
+    })
   ],
   pages:{
     signIn: "/login#",

@@ -1,10 +1,13 @@
 import { Form, Input, Button, message } from "antd";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useState } from "react";
 
 export default function SignUp() {
   const [errorMessage, setErrorMessage] = useState(null);
   const [loading, setLoading] = useState(false)
+  const [form] = Form.useForm();
+  const router = useRouter();
 
   const onFinish = async (values) => {
     try {
@@ -22,6 +25,8 @@ export default function SignUp() {
         // Signup was successful
         const data = await response.json();
         message.success(data?.message)
+        form.resetFields();
+        router.push("/login")
       } else {
         // Signup failed
         const errorData = await response.json();
@@ -45,6 +50,7 @@ export default function SignUp() {
           className="space-y-6"
           layout="vertical"
           validateTrigger="onSubmit"
+          form={form}
         >
           <Form.Item
             name="name"
