@@ -1,6 +1,6 @@
 import { Form, Input, Button } from "antd";
 import Link from "next/link";
-import { signIn, useSession } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
@@ -22,7 +22,7 @@ export default function Login() {
 
   return (
     <div className="w-full flex-1 flex justify-center items-center">
-      <div className="w-full max-w-md p-8 space-y-3 rounded-xl shadow-md h-fit my-10 bg-cyan-700 bg-opacity-5">
+      <div className="w-full max-w-md p-8 space-y-3 rounded-xl shadow-md h-fit my-10 bg-white">
         <h1 className="text-2xl font-bold text-center">Login</h1>
         <Form
           onFinish={onFinish}
@@ -82,8 +82,8 @@ export default function Login() {
           <button
             aria-label="Login with Google"
             type="button"
-            className="flex items-center justify-center w-full p-4 space-x-4 border rounded-md focus:ri focus:ri focus:ri hover:bg-slate-300 transition-all"
-            onClick={()=> signIn("google", {callbackUrl:"http://localhost:3000/"})}
+            className="flex items-center justify-center bg-blue-50 w-full p-4 space-x-4 border rounded-md focus:ri focus:ri focus:ri hover:bg-blue-200 transition-all"
+            onClick={()=> signIn("google", {callbackUrl:`${process.env.NEXT_API_BASE_URL}`})}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

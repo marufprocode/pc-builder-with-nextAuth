@@ -1,5 +1,5 @@
-import connectDB from "../lib/dbConnect";
-import CategoriesModel from "../models/categoriesModel";
+import connectDB from "@/lib/dbConnect";
+import CategoriesModel from "@/models/categoriesModel";
 
 export default async function handler(req, res) {
   const { method } = req;
@@ -10,7 +10,9 @@ export default async function handler(req, res) {
   switch (method) {
     case "GET":
       try {
-        const featuredCategories = await CategoriesModel.find({ featured: true });
+        const featuredCategories = await CategoriesModel.find({
+          featured: true,
+        });
         res.status(200).json(featuredCategories);
       } catch (error) {
         res.status(500).json({ error: "Failed to fetch featured products" });

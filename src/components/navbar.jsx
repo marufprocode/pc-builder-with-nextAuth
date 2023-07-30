@@ -12,12 +12,13 @@ export default function Navbar() {
     <header className="w-full flex justify-between items-center py-3 border-b px-10 h-fit">
         <h5>PC Builder</h5>
         <ul className="flex gap-2 items-center">
+            <li className="cursor-pointer"><Link href="/">Home</Link></li>
             <li className="cursor-pointer"><CategoriesMenu/></li>
             {
-              !isAuth && <li><Button type="primary"><Link href="login">Login</Link></Button></li>
+              !isAuth && <li><Button type="primary"><Link href="/login">Login</Link></Button></li>
             }
             {
-              !isAuth && <li><Button type="primary"><Link href="signup">SignUp</Link></Button></li>
+              !isAuth && <li><Button type="primary"><Link href="/signup">SignUp</Link></Button></li>
             }
             {
               isAuth && <li><Button type="primary" onClick={signOut}>LogOut</Button></li>

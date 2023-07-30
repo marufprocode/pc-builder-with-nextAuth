@@ -1,6 +1,6 @@
+import connectDB from "@/lib/dbConnect";
+import UserModel from "@/models/userModel";
 import NextAuth from "next-auth";
-import connectDB from "../lib/dbConnect";
-import UserModel from "../models/userModel";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 
@@ -11,7 +11,7 @@ export const authOptions = {
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
     CredentialsProvider({
       credentials: {},
@@ -24,13 +24,14 @@ export const authOptions = {
         if (!passwordMacthed) throw Error("Password is not correct");
         return user;
       },
-    })
+    }),
   ],
-  pages:{
+  secret: process.env.NEXTAUTH_SECRET,
+  pages: {
     signIn: "/login#",
   },
   callbacks: {
-    jwt({token, user}) {
+    jwt({ token, user }) {
       if (user) {
         token.email = user.email;
         token.id = user._id;
@@ -43,8 +44,8 @@ export const authOptions = {
         session.user.email = token.email;
       }
       return session;
-    }
-  }
+    },
+  },
 };
 
 export default NextAuth(authOptions);

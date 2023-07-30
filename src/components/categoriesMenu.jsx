@@ -21,7 +21,7 @@ const CategoriesMenu = () => {
   const { data } = useSWR('/api/products/categories', fetcher)
   
   const items = data?.map((category) => ({
-    label: <Link href={`/category/${category?._id}`}>
+    label: <Link href={`/product/${category?._id}`}>
     {category?.title}
   </Link>,
     key: category._id,
