@@ -5,15 +5,16 @@ import { StyleProvider } from "@ant-design/cssinjs";
 import { SessionProvider } from "next-auth/react";
 
 export default function App({ Component, pageProps }) {
+
   return (
-    <StyleProvider hashPriority="high">
-      <PCBuilderProvider>
-      <SessionProvider session={pageProps?.session}>
-      <MainLayout>
-        <Component {...pageProps} />
-      </MainLayout>
-      </SessionProvider>
-      </PCBuilderProvider>
-    </StyleProvider>
+    <SessionProvider session={pageProps?.session}>
+      <StyleProvider hashPriority="high">
+        <PCBuilderProvider>
+          <MainLayout>
+            <Component {...pageProps} />
+          </MainLayout>
+        </PCBuilderProvider>
+      </StyleProvider>
+    </SessionProvider>
   );
 }

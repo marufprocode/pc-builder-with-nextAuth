@@ -24,6 +24,16 @@ export default async function handler(req, res) {
         res.status(500).json({ error: "Failed to fetch product" });
       }
       break;
+      case "PATCH":
+        try {
+          // Get the category by ID
+          const updatedData =  await ProductModel.findOneAndUpdate({_id:query?.id}, req.body)
+          res.status(200).json(updatedData);
+        } catch (error) {
+          console.log(error?.message);
+          res.status(500).json({ error: "Failed to fetch product" });
+        }
+        break;
     default:
       res.setHeader("Allow", ["GET"]);
       res.status(405).json({ error: `Method ${method} Not Allowed` });

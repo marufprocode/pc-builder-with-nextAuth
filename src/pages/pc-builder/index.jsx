@@ -1,5 +1,4 @@
 import BuilderCategory from "@/components/builderCategory";
-import { PCBuilderProvider } from "@/components/pcBuilderContext";
 import PcBuilderHeader from "@/components/pcBuilderHeader";
 
 export default function PcBuilderPage({ categories }) {
