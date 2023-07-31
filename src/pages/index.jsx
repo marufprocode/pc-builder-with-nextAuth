@@ -6,7 +6,7 @@ export default function Home({ featuredProducts, featuredCategories }) {
     <main className="px-10">
       <h3 className="my-5 text-2xl font-semibold">Featured Products:</h3>
       {featuredProducts?.length > 0 && (
-        <div className="grid grid-cols-5 place-items-center gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 place-items-center gap-5">
           {featuredProducts?.map((product) => (
             <ProductCard key={product?._id} product={product} />
           ))}
@@ -14,7 +14,7 @@ export default function Home({ featuredProducts, featuredCategories }) {
       )}
       <h3 className="my-10 text-2xl font-semibold">Featured Categories:</h3>
       {featuredCategories?.length > 0 && (
-        <div className="grid grid-cols-2 place-items-center gap-5">
+        <div className="grid grid-cols-1 lg:grid-cols-2 place-items-center gap-5">
           {featuredCategories?.map((category) => (
             <CategoryCard key={category?._id} category={category} />
           ))}
@@ -24,7 +24,7 @@ export default function Home({ featuredProducts, featuredCategories }) {
   );
 }
 
-export const getServerSideProps = async () => {
+export const getStaticProps = async () => {
   const products = await fetch(
     `${process.env.NEXT_API_BASE_URL}/api/products/featured-products`
   );

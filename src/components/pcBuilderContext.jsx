@@ -1,55 +1,55 @@
-import React, { createContext, useReducer } from 'react';
+import React, { createContext, useReducer, useContext } from 'react';
 
 // Define action types for the reducer
 const ADD_COMPONENT = 'ADD_COMPONENT';
 const REMOVE_COMPONENT = 'REMOVE_COMPONENT';
+const COMPLETE_BUILD = 'COMPLETE_BUILD'; 
 
 // The reducer function to handle state updates
 const reducer = (state, action) => {
   switch (action.type) {
     case ADD_COMPONENT:
-      return {
-        ...state,
-        [action.payload.category]: [
-          ...(state[action.payload.category] || []),
-          action.payload.component,
-        ],
-      };
+      return [...state, action.payload.component];
     case REMOVE_COMPONENT:
-      return {
-        ...state,
-        [action.payload.category]: state[action.payload.category].filter(
-          (_, index) => index !== action.payload.componentIndex
-        ),
-      };
+      return state.filter((component) => component?._id !== action?.payload?.productId);
+    case COMPLETE_BUILD:
+      return []
     default:
       return state;
   }
 };
 
-const initialState = {};
+
+
+const initialState = [];
 
 const PCBuilderContext = createContext();
 
 const PCBuilderProvider = ({ children }) => {
   const [selectedComponents, dispatch] = useReducer(reducer, initialState);
 
-  const addComponent = (category, component) => {
+  const addComponent = (component) => {
     dispatch({
       type: ADD_COMPONENT,
-      payload: { category, component },
+      payload: { component },
     });
   };
 
-  const removeComponent = (category, componentIndex) => {
+  const removeComponent = (productId) => {
     dispatch({
       type: REMOVE_COMPONENT,
-      payload: { category, componentIndex },
+      payload: { productId },
+    });
+  };
+  const completeBuild = () => {
+    dispatch({
+      type: COMPLETE_BUILD,
     });
   };
 
+
   return (
-    <PCBuilderContext.Provider value={{ selectedComponents, addComponent, removeComponent }}>
+    <PCBuilderContext.Provider value={{ selectedComponents, addComponent, removeComponent, completeBuild }}>
       {children}
     </PCBuilderContext.Provider>
   );

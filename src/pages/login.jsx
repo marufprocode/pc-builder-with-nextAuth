@@ -83,7 +83,7 @@ export default function Login() {
             aria-label="Login with Google"
             type="button"
             className="flex items-center justify-center bg-blue-50 w-full p-4 space-x-4 border rounded-md focus:ri focus:ri focus:ri hover:bg-blue-200 transition-all"
-            onClick={()=> signIn("google", {callbackUrl:`${process.env.NEXT_API_BASE_URL}`})}
+            onClick={()=> signIn("google", {callbackUrl:`https://pc-builder-application-xi.vercel.app`})}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
