@@ -2,6 +2,7 @@ import usePcBuilderContext from "@/hooks/usePcBuilder";
 import { Button, Modal } from "antd";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
+import { useEffect } from "react";
 
 export default function PcBuilderHeader() {
   const { selectedComponents, completeBuild } = usePcBuilderContext();
@@ -10,8 +11,10 @@ export default function PcBuilderHeader() {
 
   const isAuth = status === "authenticated";
 
-  if (router?.path?.startsWith("/pc-builder") && !isAuth)
+  useEffect(()=>{
+    if (router?.path?.startsWith("/pc-builder") && !isAuth)
     return router.push("/login");
+  },[isAuth, router])
 
   const totalPrice = selectedComponents?.reduce((acc, curr) => {
     return acc + curr.price;
